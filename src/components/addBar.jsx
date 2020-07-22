@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-const mockList = [];
 class AddBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { todoTask: "", todoList: mockList };
+    this.state = { todoTask: "" };
   }
 
   handleOnSubmit(event) {
     event.preventDefault();
     console.log("sumited");
-    const newTodoList = [this.state.todoTask, ...this.state.todoList];
-    this.setState({ todoList: newTodoList });
-    console.log(this.state.todoList);
+    this.props.onNewTask(this.state.todoTask);
   }
 
   handleOnchange(event) {
