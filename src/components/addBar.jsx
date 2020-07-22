@@ -1,20 +1,23 @@
 import React, { Component } from "react";
-
-const mockTodoList = [{}];
+const mockList = [];
 class AddBar extends Component {
   constructor(props) {
     super(props);
-    this.state = mockTodoList;
+    this.state = { todoTask: "", todoList: mockList };
   }
 
   handleOnSubmit(event) {
     event.preventDefault();
     console.log("sumited");
+    const newTodoList = [this.state.todoTask, ...this.state.todoList];
+    this.setState({ todoList: newTodoList });
+    console.log(this.state.todoList);
   }
 
   handleOnchange(event) {
-    console.log("on change");
-    this.setState({ username: event.target.value });
+    let newTodoTask = this.state.todoTask;
+    newTodoTask = event.target.value;
+    this.setState({ todoTask: newTodoTask });
   }
 
   render() {
@@ -27,12 +30,13 @@ class AddBar extends Component {
                 Add a to do task...
               </label>
               <input
+                autoFocus={true}
                 className="form-control"
                 type="text"
                 id="todoTask"
                 name="todoTask"
                 placeholder="Add a to do task..."
-                value=""
+                value={this.state.todoTask}
                 onChange={(event) => this.handleOnchange(event)}
               ></input>
             </div>
