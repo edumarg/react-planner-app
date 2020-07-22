@@ -1,6 +1,7 @@
 import React from "react";
 
 const DoneList = (props) => {
+  const sortedData = props.doneList.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
       <h3>Done List...</h3>
@@ -15,9 +16,9 @@ const DoneList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {this.props.todoList.map((task) => (
-            <tr key={task}>
-              <td>{task}</td>
+          {sortedData.map((done) => (
+            <tr key={done.task}>
+              <td>{done.task}</td>
               <td>
                 <i className="fa fa-check-square" aria-hidden="true"></i>
               </td>

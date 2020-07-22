@@ -2,19 +2,26 @@ import React, { Component } from "react";
 class AddBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { todoTask: "" };
+    this.state = {
+      task: "",
+      done: false,
+      createdAt: "",
+      favorite: false,
+    };
   }
 
   handleOnSubmit(event) {
     event.preventDefault();
     console.log("sumited");
-    this.props.onNewTask(this.state.todoTask);
+    this.props.onNewTask(this.state);
   }
 
   handleOnchange(event) {
-    let newTodoTask = this.state.todoTask;
+    const now = Date.now();
+    const createdDate = new Date(now);
+    let newTodoTask = this.state.task;
     newTodoTask = event.target.value;
-    this.setState({ todoTask: newTodoTask });
+    this.setState({ task: newTodoTask, createdAt: createdDate });
   }
 
   render() {

@@ -4,8 +4,52 @@ import AddBar from "./components/addBar";
 import ToDoList from "./components/toDoList";
 import DoneList from "./components/DoneList";
 
-const mockTodoList = ["Read a book", "Sleep"];
-const mockDoneList = ["TV", "Code", "Buy food"];
+const now = Date.now();
+const now1 = now + 100000;
+const now2 = now1 - 200000;
+
+const mockTodoList = [
+  {
+    task: "Read",
+    done: false,
+    createdAt: new Date(now),
+    favorite: false,
+  },
+  {
+    task: "Eat",
+    done: false,
+    createdAt: new Date(now1),
+    favorite: false,
+  },
+  {
+    task: "Code",
+    done: false,
+    createdAt: new Date(now2),
+    favorite: false,
+  },
+];
+
+console.log(mockTodoList);
+const mockDoneList = [
+  {
+    task: "TV",
+    done: false,
+    createdAt: new Date(now),
+    favorite: false,
+  },
+  {
+    task: "Walk",
+    done: false,
+    createdAt: new Date(now1),
+    favorite: false,
+  },
+  {
+    task: "Spleed",
+    done: false,
+    createdAt: new Date(now2),
+    favorite: false,
+  },
+];
 class App extends Component {
   constructor(props) {
     super(props);

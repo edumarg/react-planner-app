@@ -1,6 +1,8 @@
 import React from "react";
+import MyButton from "./common/buttons";
 
 const ToDoList = (props) => {
+  const sortedData = props.todoList.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
       <h3>To do List...</h3>
@@ -15,19 +17,17 @@ const ToDoList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.todoList.map((task) => (
-            <tr key={task}>
-              <td>{task}</td>
+          {sortedData.map((todo) => (
+            <tr key={todo.task}>
+              <td>{todo.task}</td>
               <td>
-                <i className="fa fa-check-square" aria-hidden="true"></i>
-              </td>
-              {/* for solid check square add -o */}
-              <td>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                {/* for solid chanfe add */}
+                <MyButton classes={"fa fa-check-square"}></MyButton>
               </td>
               <td>
-                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <MyButton classes={"fa fa-star"}></MyButton>
+              </td>
+              <td>
+                <i className="fa fa-pencil-square" aria-hidden="true"></i>
               </td>
               <td>
                 <i className="fa fa-trash" aria-hidden="true"></i>
