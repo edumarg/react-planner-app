@@ -21,16 +21,20 @@ const ToDoList = (props) => {
             <tr key={todo.task}>
               <td>{todo.task}</td>
               <td>
-                <MyButton classes={"fa fa-check-square"}></MyButton>
+                <MyButton
+                  classes={"fa fa-check-square"}
+                  type={todo.done}
+                  onClick={() => props.onDone(todo)}
+                ></MyButton>
               </td>
               <td>
                 <MyButton classes={"fa fa-star"}></MyButton>
               </td>
               <td>
-                <i className="fa fa-pencil-square" aria-hidden="true"></i>
+                <i className="fa fa-pencil-square"></i>
               </td>
               <td>
-                <i className="fa fa-trash" aria-hidden="true"></i>
+                <i className="fa fa-trash"></i>
               </td>
             </tr>
           ))}

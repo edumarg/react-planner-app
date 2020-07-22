@@ -1,4 +1,5 @@
 import React from "react";
+import MyButton from "./common/buttons";
 
 const DoneList = (props) => {
   const sortedData = props.doneList.sort((a, b) => a.createdAt - b.createdAt);
@@ -20,18 +21,23 @@ const DoneList = (props) => {
             <tr key={done.task}>
               <td>{done.task}</td>
               <td>
-                <i className="fa fa-check-square" aria-hidden="true"></i>
-              </td>
-              {/* for solid add-o */}
-              <td>
-                <i className="fa fa-star" aria-hidden="true"></i>
-                {/* for solid add-o */}
-              </td>
-              <td>
-                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <MyButton
+                  classes={"fa fa-check-square"}
+                  type={done.done}
+                  onClick={() => props.onTodo(done)}
+                ></MyButton>
               </td>
               <td>
-                <i className="fa fa-trash" aria-hidden="true"></i>
+                <MyButton
+                  classes={"fa fa-star"}
+                  type={done.task.favorite}
+                ></MyButton>
+              </td>
+              <td>
+                <i className="fa fa-pencil-square"></i>
+              </td>
+              <td>
+                <i className="fa fa-trash"></i>
               </td>
             </tr>
           ))}

@@ -2,7 +2,7 @@ import React from "react";
 
 const MyButton = (props) => {
   let classes = props.classes;
-  if (!props.liked) classes += "-o";
+  if (!props.type) classes += "-o";
   return (
     <i
       onClick={props.onClick}
