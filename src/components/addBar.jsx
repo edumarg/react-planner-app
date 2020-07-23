@@ -14,6 +14,7 @@ class AddBar extends Component {
     event.preventDefault();
     console.log("sumited");
     this.props.onNewTask(this.state);
+    event.target.value = "";
   }
 
   handleOnchange(event) {

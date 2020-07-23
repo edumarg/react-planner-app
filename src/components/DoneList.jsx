@@ -37,7 +37,11 @@ const DoneList = (props) => {
                 <i className="fa fa-pencil-square"></i>
               </td>
               <td>
-                <i className="fa fa-trash"></i>
+                <i
+                  className="fa fa-trash"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => props.onDelete(done)}
+                ></i>
               </td>
             </tr>
           ))}
