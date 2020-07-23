@@ -1,11 +1,11 @@
 import React from "react";
 import MyButton from "./common/buttons";
 
-const ToDoList = (props) => {
-  const sortedData = props.todoList.sort((a, b) => a.createdAt - b.createdAt);
+const List = (props) => {
+  const sortedData = props.list.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
-      <h3>To do List...</h3>
+      <h3>Done List...</h3>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -17,34 +17,31 @@ const ToDoList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {sortedData.map((todo) => (
-            <tr key={todo.task}>
-              <td>{todo.task}</td>
+          {sortedData.map((done) => (
+            <tr key={done.createdAt}>
+              <td>{done.task}</td>
               <td>
                 <MyButton
                   classes={"fa fa-check-square"}
-                  type={todo.done}
-                  onClick={() => props.onDone(todo)}
+                  type={done.done}
+                  onClick={() => props.onMove(done)}
                 ></MyButton>
               </td>
               <td>
                 <MyButton
                   classes={"fa fa-star"}
-                  type={todo.favorite}
-                  onClick={() => props.onFavorite(todo)}
+                  type={done.favorite}
+                  onClick={() => props.onFavorite(done)}
                 ></MyButton>
               </td>
               <td>
-                <i
-                  className="fa fa-pencil-square"
-                  style={{ cursor: "pointer" }}
-                ></i>
+                <i className="fa fa-pencil-square"></i>
               </td>
               <td>
                 <i
                   className="fa fa-trash"
                   style={{ cursor: "pointer" }}
-                  onClick={() => props.onDelete(todo)}
+                  onClick={() => props.onDelete(done)}
                 ></i>
               </td>
             </tr>
@@ -55,4 +52,4 @@ const ToDoList = (props) => {
   );
 };
 
-export default ToDoList;
+export default List;
