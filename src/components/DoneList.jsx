@@ -30,7 +30,8 @@ const DoneList = (props) => {
               <td>
                 <MyButton
                   classes={"fa fa-star"}
-                  type={done.task.favorite}
+                  type={done.favorite}
+                  onClick={() => props.onFavorite(done)}
                 ></MyButton>
               </td>
               <td>

@@ -24,7 +24,7 @@ const mockDoneList = [
     favorite: true,
   },
   {
-    task: "Spleed",
+    task: "Sleep",
     done: true,
     createdAt: new Date(now2),
     favorite: false,
@@ -76,6 +76,10 @@ class App extends Component {
     else this.setState({ doneList: newList });
   }
 
+  handleFavorite(task) {
+    console.log("favorite", task);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -89,6 +93,7 @@ class App extends Component {
           doneList={this.state.doneList}
           onTodo={(task) => this.handleMove(task)}
           onDelete={(task) => this.handleDelete(task)}
+          onFavorite={(task) => this.handleFavorite(task)}
         ></DoneList>{" "}
       </React.Fragment>
     );

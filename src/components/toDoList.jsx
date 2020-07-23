@@ -28,7 +28,11 @@ const ToDoList = (props) => {
                 ></MyButton>
               </td>
               <td>
-                <MyButton classes={"fa fa-star"}></MyButton>
+                <MyButton
+                  classes={"fa fa-star"}
+                  type={todo.favorite}
+                  onClick={() => props.onFavorite(todo)}
+                ></MyButton>
               </td>
               <td>
                 <i
