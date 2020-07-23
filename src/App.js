@@ -40,10 +40,8 @@ class App extends Component {
   }
 
   handleNewTask(newTask) {
-    console.log("new task added todoList", newTask);
     const newTodoList = [newTask, ...this.state.todoList];
     this.setState({ todoList: newTodoList });
-    console.log("new todo task list", this.state.todoList);
   }
 
   handleMoveToDone(task) {
@@ -66,6 +64,14 @@ class App extends Component {
     this.setState({ todoList: newTodoList, doneList: newDoneList });
   }
 
+  handleDeleteTodo(task) {
+    console.log("delete from doto", task);
+  }
+
+  handleDeleteDone(task) {
+    console.log("delete from done", task);
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -73,10 +79,12 @@ class App extends Component {
         <ToDoList
           todoList={this.state.todoList}
           onDone={(task) => this.handleMoveToDone(task)}
+          onDelete={(task) => this.handleDeleteTodo(task)}
         ></ToDoList>
         <DoneList
           doneList={this.state.doneList}
           onTodo={(task) => this.handleMoveToTodo(task)}
+          onDelete={(task) => this.handleDeleteDone(task)}
         ></DoneList>
       </React.Fragment>
     );

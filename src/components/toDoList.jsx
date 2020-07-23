@@ -31,10 +31,17 @@ const ToDoList = (props) => {
                 <MyButton classes={"fa fa-star"}></MyButton>
               </td>
               <td>
-                <i className="fa fa-pencil-square"></i>
+                <i
+                  className="fa fa-pencil-square"
+                  style={{ cursor: "pointer" }}
+                ></i>
               </td>
               <td>
-                <i className="fa fa-trash"></i>
+                <i
+                  className="fa fa-trash"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => props.onDelete(todo)}
+                ></i>
               </td>
             </tr>
           ))}
