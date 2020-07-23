@@ -65,11 +65,21 @@ class App extends Component {
   }
 
   handleDeleteTodo(task) {
-    console.log("delete from doto", task);
+    let newTodoList = [...this.state.todoList];
+    const index = newTodoList.indexOf(task);
+    newTodoList.splice(index, 1);
+    this.setState({
+      todoList: newTodoList,
+    });
   }
 
   handleDeleteDone(task) {
-    console.log("delete from done", task);
+    let newTodoList = [...this.state.doneList];
+    const index = newTodoList.indexOf(task);
+    newTodoList.splice(index, 1);
+    this.setState({
+      doneList: newTodoList,
+    });
   }
 
   render() {
