@@ -44,58 +44,52 @@ class App extends Component {
     this.setState({ todoList: newTodoList });
   }
 
-  handleMoveToDone(task) {
-    let newTodoList = [...this.state.todoList];
-    let newDoneList = [...this.state.doneList];
-    const index = newTodoList.indexOf(task);
-    newTodoList[index].done = !newTodoList[index].done;
-    newDoneList = [newTodoList[index], ...newDoneList];
-    newTodoList.splice(index, 1);
-    this.setState({ todoList: newTodoList, doneList: newDoneList });
+  handleMove(task) {
+    let sourceList = [];
+    let destList = [];
+
+    if (!task.done) {
+      sourceList = [...this.state.todoList];
+      destList = [...this.state.doneList];
+    } else {
+      sourceList = [...this.state.doneList];
+      destList = [...this.state.todoList];
+    }
+    const index = sourceList.indexOf(task);
+    sourceList[index].done = !sourceList[index].done;
+    destList = [sourceList[index], ...destList];
+    sourceList.splice(index, 1);
+    if (task.done) {
+      this.setState({ todoList: sourceList, doneList: destList });
+    } else {
+      this.setState({ todoList: destList, doneList: sourceList });
+    }
   }
 
-  handleMoveToTodo(task) {
-    let newTodoList = [...this.state.todoList];
-    let newDoneList = [...this.state.doneList];
-    const index = newDoneList.indexOf(task);
-    newDoneList[index].done = !newDoneList[index].done;
-    newTodoList = [newDoneList[index], ...newTodoList];
-    newDoneList.splice(index, 1);
-    this.setState({ todoList: newTodoList, doneList: newDoneList });
-  }
-
-  handleDeleteTodo(task) {
-    let newTodoList = [...this.state.todoList];
-    const index = newTodoList.indexOf(task);
-    newTodoList.splice(index, 1);
-    this.setState({
-      todoList: newTodoList,
-    });
-  }
-
-  handleDeleteDone(task) {
-    let newTodoList = [...this.state.doneList];
-    const index = newTodoList.indexOf(task);
-    newTodoList.splice(index, 1);
-    this.setState({
-      doneList: newTodoList,
-    });
+  handleDelete(task) {
+    let newList = [];
+    if (!task.done) newList = [...this.state.todoList];
+    else newList = [...this.state.doneList];
+    const index = newList.indexOf(task);
+    newList.splice(index, 1);
+    if (!task.done) this.setState({ todoList: newList });
+    else this.setState({ doneList: newList });
   }
 
   render() {
     return (
       <React.Fragment>
-        <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>
+        <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>{" "}
         <ToDoList
           todoList={this.state.todoList}
-          onDone={(task) => this.handleMoveToDone(task)}
-          onDelete={(task) => this.handleDeleteTodo(task)}
-        ></ToDoList>
+          onDone={(task) => this.handleMove(task)}
+          onDelete={(task) => this.handleDelete(task)}
+        ></ToDoList>{" "}
         <DoneList
           doneList={this.state.doneList}
-          onTodo={(task) => this.handleMoveToTodo(task)}
-          onDelete={(task) => this.handleDeleteDone(task)}
-        ></DoneList>
+          onTodo={(task) => this.handleMove(task)}
+          onDelete={(task) => this.handleDelete(task)}
+        ></DoneList>{" "}
       </React.Fragment>
     );
   }
