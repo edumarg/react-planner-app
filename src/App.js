@@ -17,10 +17,8 @@ class App extends Component {
 
   handleNewTask(newTask) {
     let newTodoList = [...this.state.todoList];
-    console.log(newTodoList);
     newTodoList = [newTask, ...this.state.todoList];
     this.setState({ todoList: newTodoList });
-    console.log(newTodoList);
   }
 
   handleMove(task) {
@@ -62,36 +60,32 @@ class App extends Component {
   }
 
   handleFavorite(task) {
-    console.log("favorite", task);
     if (!task.done) {
-      debugger;
-      let newList = [...this.state.todoList];
+      const newList = [...this.state.todoList];
       const index = newList.indexOf(task);
       newList[index] = { ...newList[index] };
       newList[index].favorite = !newList[index].favorite;
-      let favList = newList
+      const favList = newList
         .filter((task) => task.favorite)
         .sort((a, b) => a.createdAt - b.createdAt);
-      let notFavList = newList
+      const notFavList = newList
         .filter((task) => !task.favorite)
-        .sort((a, b) => a.createdAt - b.createdAt);
-      const sortedList = [...favList, ...notFavList];
+        .sort((a, b) => a.createAt - b.createAt);
+      let sortedList = [...favList, ...notFavList];
       this.setState({ todoList: sortedList });
     } else if (task.done) {
-      debugger;
-      let newList = [...this.state.doneList];
+      const newList = [...this.state.doneList];
       const index = newList.indexOf(task);
       newList[index] = { ...newList[index] };
       newList[index].favorite = !newList[index].favorite;
-      let favList = newList.filter((task) => task.favorite);
-      let notFavList = newList.filter((task) => !task.favorite);
-      favList = favList.sort((a, b) => a.createdAt - b.createdAt);
-      console.log("fav", favList);
-      notFavList = notFavList.sort((a, b) => a.createdAt - b.createdAt);
-      console.log("nofav", notFavList);
-      newList = [...favList, ...notFavList];
-      console.log("new", newList);
-      this.setState({ doneList: newList });
+      const favList = newList
+        .filter((task) => task.favorite)
+        .sort((a, b) => a.createdAt - b.createdAt);
+      const notFavList = newList
+        .filter((task) => !task.favorite)
+        .sort((a, b) => a.createAt - b.createAt);
+      let sortedList = [...favList, ...notFavList];
+      this.setState({ doneList: sortedList });
     }
   }
 
@@ -100,12 +94,14 @@ class App extends Component {
       <React.Fragment>
         <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>{" "}
         <List
+          type="To do"
           list={this.state.todoList}
           onMove={(task) => this.handleMove(task)}
           onDelete={(task) => this.handleDelete(task)}
           onFavorite={(task) => this.handleFavorite(task)}
         ></List>{" "}
         <List
+          type="Done"
           list={this.state.doneList}
           onMove={(task) => this.handleMove(task)}
           onDelete={(task) => this.handleDelete(task)}

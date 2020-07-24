@@ -5,7 +5,7 @@ const List = (props) => {
   const sortedData = props.list.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
-      <h3>Done List...</h3>
+      <h3>{props.type} List...</h3>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -17,21 +17,21 @@ const List = (props) => {
           </tr>
         </thead>
         <tbody>
-          {sortedData.map((done) => (
-            <tr key={done.createdAt}>
-              <td>{done.task}</td>
+          {sortedData.map((task) => (
+            <tr key={task.id}>
+              <td>{task.task}</td>
               <td>
                 <MyButton
                   classes={"fa fa-check-square"}
-                  type={done.done}
-                  onClick={() => props.onMove(done)}
+                  type={task.done}
+                  onClick={() => props.onMove(task)}
                 ></MyButton>
               </td>
               <td>
                 <MyButton
                   classes={"fa fa-star"}
-                  type={done.favorite}
-                  onClick={() => props.onFavorite(done)}
+                  type={task.favorite}
+                  onClick={() => props.onFavorite(task)}
                 ></MyButton>
               </td>
               <td>
@@ -41,7 +41,7 @@ const List = (props) => {
                 <i
                   className="fa fa-trash"
                   style={{ cursor: "pointer" }}
-                  onClick={() => props.onDelete(done)}
+                  onClick={() => props.onDelete(task)}
                 ></i>
               </td>
             </tr>
