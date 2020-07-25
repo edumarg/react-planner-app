@@ -19,6 +19,7 @@ class App extends Component {
   handleNewTask(newTask) {
     let newTodoList = [...this.state.todoList];
     newTodoList = [newTask, ...this.state.todoList];
+    console.log("new list", newTodoList);
     this.setState({ todoList: newTodoList });
   }
 
@@ -61,16 +62,20 @@ class App extends Component {
       this.setState({ doneList: sortedList });
   }
 
+  handleEdit(task) {
+    console.log("edit", task);
+    let newList = [...this.state.todoList];
+    const index = newList.indexOf(task);
+    newList[index] = { ...newList[index] };
+    newList[index].beingEdited = !newList[index].beingEdited;
+    this.setState({ todoList: newList });
+  }
+
   handleReset(list) {
-    console.log("reset");
     let newList = [...list];
     newList = [];
     if (list === this.state.todoList) this.setState({ todoList: newList });
     else if (list === this.state.doneList) this.setState({ doneList: newList });
-  }
-
-  handleEdit(task, list) {
-    console.log("edit", task);
   }
 
   render() {
@@ -90,7 +95,7 @@ class App extends Component {
           onMove={(task) => this.handleMove(task, todoList, doneList)}
           onDelete={(task) => this.handleDelete(task, todoList)}
           onFavorite={(task) => this.handleFavorite(task, todoList)}
-          onEdit={(task) => this.handleEdit(task, todoList)}
+          onEdit={(task) => this.handleEdit(task)}
         ></List>{" "}
         {doneList.length > 0 && (
           <ResetButton
@@ -106,7 +111,6 @@ class App extends Component {
           }
           onDelete={(task) => this.handleDelete(task, doneList)}
           onFavorite={(task) => this.handleFavorite(task, doneList)}
-          onEdit={(task) => this.handleEdit(task, todoList)}
         ></List>{" "}
       </React.Fragment>
     );

@@ -8,6 +8,7 @@ class AddBar extends Component {
       done: false,
       createdAt: "",
       favorite: false,
+      beingEdited: false,
     };
   }
 
@@ -24,7 +25,7 @@ class AddBar extends Component {
     let id = new Date() - new Date("1987-07-22");
     const now = Date.now();
     const createdDate = new Date(now);
-    let newTodoTask = this.state.task;
+    let newTodoTask = { ...this.state.task };
     newTodoTask = event.target.value;
     this.setState({ task: newTodoTask, createdAt: createdDate, id });
   }
