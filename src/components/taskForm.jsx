@@ -8,16 +8,16 @@ class TaskForm extends Component {
   handleOnSubmit(event) {
     event.preventDefault();
     this.props.onEditTask(this.state);
-    // this.setState({
-    //   task: "",
-    // });
-    // event.target.reset();
   }
 
   handleOnchange(event) {
     let editTask = { ...this.state.task };
     editTask = event.target.value;
     this.setState({ task: editTask });
+  }
+
+  handleKeyUp(event) {
+    if (event.key === "Escape") this.props.onEditTask(this.state);
   }
 
   render() {
@@ -29,6 +29,7 @@ class TaskForm extends Component {
           value={this.state.task}
           disabled={!this.props.task.beingEdited}
           onChange={(event) => this.handleOnchange(event)}
+          onKeyUp={(event) => this.handleKeyUp(event)}
           autoFocus
         />
       </form>
