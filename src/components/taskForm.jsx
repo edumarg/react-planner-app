@@ -25,12 +25,16 @@ class TaskForm extends Component {
       <form onSubmit={(event) => this.handleOnSubmit(event)}>
         <input
           type="text"
-          className="form-control border-0"
+          className={
+            this.props.task.beingEdited
+              ? "form-control border-0 focusedInput"
+              : "form-control border-0"
+          }
           value={this.state.task}
           disabled={!this.props.task.beingEdited}
           onChange={(event) => this.handleOnchange(event)}
           onKeyUp={(event) => this.handleKeyUp(event)}
-          autoFocus
+          autoFocus={this.props.task.beingEdited}
         />
       </form>
     );
