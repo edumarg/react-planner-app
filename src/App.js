@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import AddBar from "./components/addBar";
 import List from "./components/list";
+import ResetButton from "./components/resetButton";
 
 const mockTodoList = [];
 const mockDoneList = [];
@@ -56,30 +57,50 @@ class App extends Component {
       .sort((a, b) => a.createAt - b.createAt);
     let sortedList = [...favList, ...notFavList];
     if (list === this.state.todoList) this.setState({ todoList: sortedList });
-    if (list === this.state.doneList) this.setState({ doneList: sortedList });
+    else if (list === this.state.doneList)
+      this.setState({ doneList: sortedList });
+  }
+
+  handleReset(list) {
+    console.log("reset");
+    let newList = [...list];
+    newList = [];
+    if (list === this.state.todoList) this.setState({ todoList: newList });
+    else if (list === this.state.doneList) this.setState({ doneList: newList });
   }
 
   render() {
+    const { todoList, doneList } = this.state;
     return (
       <React.Fragment>
         <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>{" "}
+        {todoList.length > 0 && (
+          <ResetButton
+            onReset={() => this.handleReset(todoList)}
+            label="Reset Todo List"
+          ></ResetButton>
+        )}
         <List
           type="To do"
-          list={this.state.todoList}
-          onMove={(task) =>
-            this.handleMove(task, this.state.todoList, this.state.doneList)
-          }
-          onDelete={(task) => this.handleDelete(task, this.state.todoList)}
-          onFavorite={(task) => this.handleFavorite(task, this.state.todoList)}
+          list={todoList}
+          onMove={(task) => this.handleMove(task, todoList, doneList)}
+          onDelete={(task) => this.handleDelete(task, todoList)}
+          onFavorite={(task) => this.handleFavorite(task, todoList)}
         ></List>{" "}
+        {doneList.length > 0 && (
+          <ResetButton
+            onReset={() => this.handleReset(doneList)}
+            label="Reset Done List"
+          ></ResetButton>
+        )}
         <List
           type="Done"
           list={this.state.doneList}
           onMove={(task) =>
-            this.handleMove(task, this.state.doneList, this.state.todoList)
+            this.handleMove(task, this.state.doneList, todoList)
           }
-          onDelete={(task) => this.handleDelete(task, this.state.doneList)}
-          onFavorite={(task) => this.handleFavorite(task, this.state.doneList)}
+          onDelete={(task) => this.handleDelete(task, doneList)}
+          onFavorite={(task) => this.handleFavorite(task, doneList)}
         ></List>{" "}
       </React.Fragment>
     );
