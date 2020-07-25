@@ -21,72 +21,42 @@ class App extends Component {
     this.setState({ todoList: newTodoList });
   }
 
-  handleMove(task) {
-    if (!task.done) {
-      let newTodoList = [...this.state.todoList];
-      let newDoneList = [...this.state.doneList];
-      const index = newTodoList.indexOf(task);
-      newTodoList[index].done = !newTodoList[index].done;
-      newDoneList = [newTodoList[index], ...newDoneList];
-      newTodoList.splice(index, 1);
-      this.setState({ todoList: newTodoList, doneList: newDoneList });
-    } else if (task.done) {
-      let newTodoList = [...this.state.todoList];
-      let newDoneList = [...this.state.doneList];
-      const index = newDoneList.indexOf(task);
-      newDoneList[index].done = !newDoneList[index].done;
-      newTodoList = [newDoneList[index], ...newTodoList];
-      newDoneList.splice(index, 1);
-      this.setState({ todoList: newTodoList, doneList: newDoneList });
+  handleMove(task, source, dest) {
+    let newSource = [...source];
+    let newDest = [...dest];
+    const index = newSource.indexOf(task);
+    newSource[index].done = !newSource[index].done;
+    newDest = [newSource[index], ...dest];
+    newSource.splice(index, 1);
+    if (source === this.state.todoList) {
+      this.setState({ todoList: newSource, doneList: newDest });
+    } else if (source === this.state.doneList) {
+      this.setState({ todoList: newDest, doneList: newSource });
     }
   }
 
-  handleDelete(task) {
-    if (!task.done) {
-      let newTodoList = [...this.state.todoList];
-      const index = newTodoList.indexOf(task);
-      newTodoList.splice(index, 1);
-      this.setState({
-        todoList: newTodoList,
-      });
-    } else if (task.done) {
-      let newDoneList = [...this.state.doneList];
-      const index = newDoneList.indexOf(task);
-      newDoneList.splice(index, 1);
-      this.setState({
-        doneList: newDoneList,
-      });
-    }
+  handleDelete(task, list) {
+    let newList = [...list];
+    const index = newList.indexOf(task);
+    newList.splice(index, 1);
+    if (list === this.state.todoList) this.setState({ todoList: newList });
+    else if (list === this.state.doneList) this.setState({ doneList: newList });
   }
 
-  handleFavorite(task) {
-    if (!task.done) {
-      const newList = [...this.state.todoList];
-      const index = newList.indexOf(task);
-      newList[index] = { ...newList[index] };
-      newList[index].favorite = !newList[index].favorite;
-      const favList = newList
-        .filter((task) => task.favorite)
-        .sort((a, b) => a.createdAt - b.createdAt);
-      const notFavList = newList
-        .filter((task) => !task.favorite)
-        .sort((a, b) => a.createAt - b.createAt);
-      let sortedList = [...favList, ...notFavList];
-      this.setState({ todoList: sortedList });
-    } else if (task.done) {
-      const newList = [...this.state.doneList];
-      const index = newList.indexOf(task);
-      newList[index] = { ...newList[index] };
-      newList[index].favorite = !newList[index].favorite;
-      const favList = newList
-        .filter((task) => task.favorite)
-        .sort((a, b) => a.createdAt - b.createdAt);
-      const notFavList = newList
-        .filter((task) => !task.favorite)
-        .sort((a, b) => a.createAt - b.createAt);
-      let sortedList = [...favList, ...notFavList];
-      this.setState({ doneList: sortedList });
-    }
+  handleFavorite(task, list) {
+    const newList = [...list];
+    const index = newList.indexOf(task);
+    newList[index] = { ...newList[index] };
+    newList[index].favorite = !newList[index].favorite;
+    const favList = newList
+      .filter((task) => task.favorite)
+      .sort((a, b) => a.createdAt - b.createdAt);
+    const notFavList = newList
+      .filter((task) => !task.favorite)
+      .sort((a, b) => a.createAt - b.createAt);
+    let sortedList = [...favList, ...notFavList];
+    if (list === this.state.todoList) this.setState({ todoList: sortedList });
+    if (list === this.state.doneList) this.setState({ doneList: sortedList });
   }
 
   render() {
@@ -96,16 +66,20 @@ class App extends Component {
         <List
           type="To do"
           list={this.state.todoList}
-          onMove={(task) => this.handleMove(task)}
-          onDelete={(task) => this.handleDelete(task)}
-          onFavorite={(task) => this.handleFavorite(task)}
+          onMove={(task) =>
+            this.handleMove(task, this.state.todoList, this.state.doneList)
+          }
+          onDelete={(task) => this.handleDelete(task, this.state.todoList)}
+          onFavorite={(task) => this.handleFavorite(task, this.state.todoList)}
         ></List>{" "}
         <List
           type="Done"
           list={this.state.doneList}
-          onMove={(task) => this.handleMove(task)}
-          onDelete={(task) => this.handleDelete(task)}
-          onFavorite={(task) => this.handleFavorite(task)}
+          onMove={(task) =>
+            this.handleMove(task, this.state.doneList, this.state.todoList)
+          }
+          onDelete={(task) => this.handleDelete(task, this.state.doneList)}
+          onFavorite={(task) => this.handleFavorite(task, this.state.doneList)}
         ></List>{" "}
       </React.Fragment>
     );
