@@ -69,6 +69,10 @@ class App extends Component {
     else if (list === this.state.doneList) this.setState({ doneList: newList });
   }
 
+  handleEdit(task, list) {
+    console.log("edit", task);
+  }
+
   render() {
     const { todoList, doneList } = this.state;
     return (
@@ -86,6 +90,7 @@ class App extends Component {
           onMove={(task) => this.handleMove(task, todoList, doneList)}
           onDelete={(task) => this.handleDelete(task, todoList)}
           onFavorite={(task) => this.handleFavorite(task, todoList)}
+          onEdit={(task) => this.handleEdit(task, todoList)}
         ></List>{" "}
         {doneList.length > 0 && (
           <ResetButton
@@ -101,6 +106,7 @@ class App extends Component {
           }
           onDelete={(task) => this.handleDelete(task, doneList)}
           onFavorite={(task) => this.handleFavorite(task, doneList)}
+          onEdit={(task) => this.handleEdit(task, todoList)}
         ></List>{" "}
       </React.Fragment>
     );

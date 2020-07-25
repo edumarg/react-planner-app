@@ -35,7 +35,11 @@ const List = (props) => {
                 ></MyButton>
               </td>
               <td>
-                <i className="fa fa-pencil-square"></i>
+                <i
+                  className="fa fa-pencil-square"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => props.onEdit(task)}
+                ></i>
               </td>
               <td>
                 <i
