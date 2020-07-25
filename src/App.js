@@ -93,12 +93,15 @@ class App extends Component {
     return (
       <React.Fragment>
         <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>{" "}
-        {todoList.length > 0 && (
-          <ResetButton
-            onReset={() => this.handleReset(todoList)}
-            label="Reset Todo List"
-          ></ResetButton>
-        )}
+        <div className="d-flex align-items-center">
+          <h3 className="mr-3">To do List..</h3>
+          {todoList.length > 0 && (
+            <ResetButton
+              onReset={() => this.handleReset(todoList)}
+              label="Reset Todo List"
+            ></ResetButton>
+          )}
+        </div>
         <List
           type="To do"
           list={todoList}
@@ -107,23 +110,29 @@ class App extends Component {
           onFavorite={(task) => this.handleFavorite(task, todoList)}
           onEdit={(task) => this.handleEdit(task)}
           onEditTask={(task) => this.handleEditedTask(task)}
+          onReset={() => this.handleReset(todoList)}
         ></List>{" "}
         {doneList.length > 0 && (
-          <ResetButton
-            onReset={() => this.handleReset(doneList)}
-            label="Reset Done List"
-          ></ResetButton>
-        )}
-        {doneList.length > 0 && (
-          <List
-            type="Done"
-            list={this.state.doneList}
-            onMove={(task) =>
-              this.handleMove(task, this.state.doneList, todoList)
-            }
-            onDelete={(task) => this.handleDelete(task, doneList)}
-            onFavorite={(task) => this.handleFavorite(task, doneList)}
-          ></List>
+          <React.Fragment>
+            <div className="d-flex align-items-center">
+              <h3 className="mr-3">Done List..</h3>
+              {doneList.length > 0 && (
+                <ResetButton
+                  onReset={() => this.handleReset(doneList)}
+                  label="Reset Todo List"
+                ></ResetButton>
+              )}
+            </div>
+            <List
+              type="Done"
+              list={this.state.doneList}
+              onMove={(task) =>
+                this.handleMove(task, this.state.doneList, todoList)
+              }
+              onDelete={(task) => this.handleDelete(task, doneList)}
+              onFavorite={(task) => this.handleFavorite(task, doneList)}
+            ></List>
+          </React.Fragment>
         )}
       </React.Fragment>
     );

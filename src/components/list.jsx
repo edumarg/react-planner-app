@@ -6,7 +6,6 @@ const List = (props) => {
   const sortedData = props.list.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
-      <h3>{props.type} List...</h3>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -25,11 +24,9 @@ const List = (props) => {
                   <TaskForm
                     task={task}
                     onEditTask={(editedTask) => props.onEditTask(task)}
-                    // onEditedTask={(task = this.props.onEditedTask(task))}
                   ></TaskForm>
                 }
               </td>
-              {/* <td>{task.task}</td> */}
               <td>
                 <MyButton
                   classes={"fa fa-check-square"}

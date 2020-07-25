@@ -1,7 +1,7 @@
 import React from "react";
 const ResetButton = (props) => {
   return (
-    <button className="btn btn-warning" onClick={props.onReset}>
+    <button className="btn btn-warning m-2" onClick={props.onReset}>
       {props.label}
     </button>
   );
