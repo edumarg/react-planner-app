@@ -23,7 +23,7 @@ const List = (props) => {
               <td>
                 {
                   <TaskForm
-                    task={task.task}
+                    task={task}
                     onEditTask={(editedTask) => props.onEditTask(task)}
                     // onEditedTask={(task = this.props.onEditedTask(task))}
                   ></TaskForm>

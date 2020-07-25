@@ -14,6 +14,7 @@ class AddBar extends Component {
 
   handleOnSubmit(event) {
     event.preventDefault();
+    console.log(this.state);
     this.props.onNewTask(this.state);
     this.setState({
       task: "",

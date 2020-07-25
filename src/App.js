@@ -17,16 +17,19 @@ class App extends Component {
   }
 
   handleNewTask(newTask) {
+    console.log("new", newTask);
     let newTodoList = [...this.state.todoList];
     newTodoList = [newTask, ...this.state.todoList];
+    console.log("new list", newTodoList);
     this.setState({ todoList: newTodoList });
   }
 
   handleEditedTask(editedTask) {
+    console.log("edit", editedTask);
     let newList = [...this.state.todoList];
     const index = newList.indexOf(editedTask);
+    editedTask.beingEdited = !editedTask.beingEdited;
     newList[index] = editedTask;
-    console.log("new list", newList);
     this.setState({ todoList: newList });
   }
 
@@ -103,7 +106,7 @@ class App extends Component {
           onDelete={(task) => this.handleDelete(task, todoList)}
           onFavorite={(task) => this.handleFavorite(task, todoList)}
           onEdit={(task) => this.handleEdit(task)}
-          onEditedTask={(task) => this.handleEditedTask(task)}
+          onEditTask={(task) => this.handleEditedTask(task)}
         ></List>{" "}
         {doneList.length > 0 && (
           <ResetButton
