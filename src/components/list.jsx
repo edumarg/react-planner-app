@@ -1,11 +1,11 @@
 import React from "react";
 import MyButton from "./common/buttons";
 
-const ToDoList = (props) => {
-  const sortedData = props.todoList.sort((a, b) => a.createdAt - b.createdAt);
+const List = (props) => {
+  const sortedData = props.list.sort((a, b) => a.createdAt - b.createdAt);
   return (
     <React.Fragment>
-      <h3>To do List...</h3>
+      <h3>{props.type} List...</h3>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -17,30 +17,31 @@ const ToDoList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {sortedData.map((todo) => (
-            <tr key={todo.task}>
-              <td>{todo.task}</td>
+          {sortedData.map((task) => (
+            <tr key={task.id}>
+              <td>{task.task}</td>
               <td>
                 <MyButton
                   classes={"fa fa-check-square"}
-                  type={todo.done}
-                  onClick={() => props.onDone(todo)}
+                  type={task.done}
+                  onClick={() => props.onMove(task)}
                 ></MyButton>
               </td>
               <td>
-                <MyButton classes={"fa fa-star"}></MyButton>
+                <MyButton
+                  classes={"fa fa-star"}
+                  type={task.favorite}
+                  onClick={() => props.onFavorite(task)}
+                ></MyButton>
               </td>
               <td>
-                <i
-                  className="fa fa-pencil-square"
-                  style={{ cursor: "pointer" }}
-                ></i>
+                <i className="fa fa-pencil-square"></i>
               </td>
               <td>
                 <i
                   className="fa fa-trash"
                   style={{ cursor: "pointer" }}
-                  onClick={() => props.onDelete(todo)}
+                  onClick={() => props.onDelete(task)}
                 ></i>
               </td>
             </tr>
@@ -51,4 +52,4 @@ const ToDoList = (props) => {
   );
 };
 
-export default ToDoList;
+export default List;

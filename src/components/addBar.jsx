@@ -3,6 +3,7 @@ class AddBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       task: "",
       done: false,
       createdAt: "",
@@ -12,17 +13,20 @@ class AddBar extends Component {
 
   handleOnSubmit(event) {
     event.preventDefault();
-    console.log("sumited");
     this.props.onNewTask(this.state);
-    event.target.value = "";
+    this.setState({
+      task: "",
+    });
+    event.target.reset();
   }
 
   handleOnchange(event) {
+    let id = new Date() - new Date("1987-07-22");
     const now = Date.now();
     const createdDate = new Date(now);
     let newTodoTask = this.state.task;
     newTodoTask = event.target.value;
-    this.setState({ task: newTodoTask, createdAt: createdDate });
+    this.setState({ task: newTodoTask, createdAt: createdDate, id });
   }
 
   render() {
