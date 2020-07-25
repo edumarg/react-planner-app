@@ -1,5 +1,6 @@
 import React from "react";
-import MyButton from "./common/buttons";
+import MyButton from "./common/optionsButtons";
+import TaskForm from "./taskForm";
 
 const List = (props) => {
   const sortedData = props.list.sort((a, b) => a.createdAt - b.createdAt);
@@ -9,7 +10,7 @@ const List = (props) => {
       <table className="table table-hover">
         <thead>
           <tr>
-            <th>Task</th>
+            <th style={{ width: "40%" }}>Task</th>
             <th>Status</th>
             <th>Fav</th>
             <th>edit</th>
@@ -19,7 +20,16 @@ const List = (props) => {
         <tbody>
           {sortedData.map((task) => (
             <tr key={task.id}>
-              <td>{task.task}</td>
+              <td>
+                {
+                  <TaskForm
+                    task={task}
+                    onEditTask={(editedTask) => props.onEditTask(task)}
+                    // onEditedTask={(task = this.props.onEditedTask(task))}
+                  ></TaskForm>
+                }
+              </td>
+              {/* <td>{task.task}</td> */}
               <td>
                 <MyButton
                   classes={"fa fa-check-square"}
@@ -35,7 +45,13 @@ const List = (props) => {
                 ></MyButton>
               </td>
               <td>
-                <i className="fa fa-pencil-square"></i>
+                {!task.done && (
+                  <MyButton
+                    classes={"fa fa-pencil-square"}
+                    type={task.beingEdited}
+                    onClick={() => props.onEdit(task)}
+                  ></MyButton>
+                )}
               </td>
               <td>
                 <i

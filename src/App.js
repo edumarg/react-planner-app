@@ -17,9 +17,20 @@ class App extends Component {
   }
 
   handleNewTask(newTask) {
+    console.log("new", newTask);
     let newTodoList = [...this.state.todoList];
     newTodoList = [newTask, ...this.state.todoList];
+    console.log("new list", newTodoList);
     this.setState({ todoList: newTodoList });
+  }
+
+  handleEditedTask(editedTask) {
+    console.log("edit", editedTask);
+    let newList = [...this.state.todoList];
+    const index = newList.indexOf(editedTask);
+    editedTask.beingEdited = !editedTask.beingEdited;
+    newList[index] = editedTask;
+    this.setState({ todoList: newList });
   }
 
   handleMove(task, source, dest) {
@@ -61,8 +72,16 @@ class App extends Component {
       this.setState({ doneList: sortedList });
   }
 
+  handleEdit(task) {
+    console.log("edit", task);
+    let newList = [...this.state.todoList];
+    const index = newList.indexOf(task);
+    newList[index] = { ...newList[index] };
+    newList[index].beingEdited = !newList[index].beingEdited;
+    this.setState({ todoList: newList });
+  }
+
   handleReset(list) {
-    console.log("reset");
     let newList = [...list];
     newList = [];
     if (list === this.state.todoList) this.setState({ todoList: newList });
@@ -86,6 +105,8 @@ class App extends Component {
           onMove={(task) => this.handleMove(task, todoList, doneList)}
           onDelete={(task) => this.handleDelete(task, todoList)}
           onFavorite={(task) => this.handleFavorite(task, todoList)}
+          onEdit={(task) => this.handleEdit(task)}
+          onEditTask={(task) => this.handleEditedTask(task)}
         ></List>{" "}
         {doneList.length > 0 && (
           <ResetButton
@@ -93,15 +114,17 @@ class App extends Component {
             label="Reset Done List"
           ></ResetButton>
         )}
-        <List
-          type="Done"
-          list={this.state.doneList}
-          onMove={(task) =>
-            this.handleMove(task, this.state.doneList, todoList)
-          }
-          onDelete={(task) => this.handleDelete(task, doneList)}
-          onFavorite={(task) => this.handleFavorite(task, doneList)}
-        ></List>{" "}
+        {doneList.length > 0 && (
+          <List
+            type="Done"
+            list={this.state.doneList}
+            onMove={(task) =>
+              this.handleMove(task, this.state.doneList, todoList)
+            }
+            onDelete={(task) => this.handleDelete(task, doneList)}
+            onFavorite={(task) => this.handleFavorite(task, doneList)}
+          ></List>
+        )}
       </React.Fragment>
     );
   }
