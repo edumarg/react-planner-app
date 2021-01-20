@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./App.css";
 import AddBar from "./components/addBar";
 import List from "./components/list";
 import ResetButton from "./components/resetButton";
