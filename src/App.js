@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
 import AddBar from "./components/addBar";
+import BgAtribute from "./components/bgAttribute";
 import List from "./components/list";
 import ResetButton from "./components/resetButton";
 
@@ -92,7 +92,10 @@ class App extends Component {
     const { todoList, doneList } = this.state;
     return (
       <React.Fragment>
-        <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}> </AddBar>{" "}
+        <BgAtribute />
+        <AddBar onNewTask={(newTask) => this.handleNewTask(newTask)}>
+          {" "}
+        </AddBar>{" "}
         <div className="d-flex align-items-center">
           <h3 className="mr-3">To do List..</h3>
           {todoList.length > 0 && (
